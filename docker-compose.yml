@@ -1,0 +1,19 @@
+version: '3'
+services:
+  worker:
+    build: ./worker
+    depends_on:
+      - redis
+      - mongo
+  api:
+    build: ./api
+    depends_on:
+      - worker
+    ports:
+      - "8000:8000"
+  redis:
+    image: "redis:alpine"
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
